@@ -10,6 +10,7 @@ from .base import *
 # Read and set environment variables for Production
 ENV_DIR = BASE_DIR.parent
 DOTENV_PATH = os.path.join(ENV_DIR, ".env_prod")
+LOGGING_PATH = join(ENV_DIR, "logs/django.log")
 load_dotenv(dotenv_path=DOTENV_PATH)
 
 # Debugging and allowed hosts
@@ -67,4 +68,63 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 
 # Logging
-# from base
+# 로깅 설정 - 자세한 디버그 정보 출력
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOGGING_PATH,
+            "maxBytes": 1024 * 1024 * 15,  # 15MB
+            "backupCount": 10,
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "channels": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "chat": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "daphne": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "api": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
