@@ -5,8 +5,15 @@ import sys
 
 
 def main():
-    """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.local")
+    """Run settings"""
+    if os.getenv("ENVIRONMENT") == "development":
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.local")
+    elif os.getenv("ENVIRONMENT") == "production":
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings.production")
+    else:
+        print("Environment variable 'ENVIRONMENT' not set.")
+
+    # Run Django
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
