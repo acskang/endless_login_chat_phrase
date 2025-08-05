@@ -7,10 +7,9 @@ from os.path import abspath, dirname, join
 from dotenv import load_dotenv
 from .base import *
 
-current_dir = dirname(abspath(__file__))
-env_dir = dirname(dirname(dirname(current_dir)))
-DOTENV_PATH = join(env_dir, ".env_prod")
-LOGGING_PATH = join(env_dir, "logs/django.log")
+# Read and set environment variables for Production
+ENV_DIR = BASE_DIR.parent
+DOTENV_PATH = os.path.join(ENV_DIR, ".env_prod")
 load_dotenv(dotenv_path=DOTENV_PATH)
 
 # Debugging and allowed hosts

@@ -7,7 +7,7 @@ from .base import *
 from dotenv import load_dotenv
 
 # Read and set environment variables for Local Development
-ENV_DIR = os.path.expanduser("~/ganzskang/endless_login_chat_phrase/dj/")
+ENV_DIR = BASE_DIR.parent
 DOTENV_PATH = os.path.join(ENV_DIR, ".env_local")
 load_dotenv(dotenv_path=DOTENV_PATH)
 
