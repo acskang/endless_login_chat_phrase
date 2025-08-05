@@ -49,11 +49,13 @@ CORS_ALLOWED_ORIGINS = [
     "https://ganzskang.pythonanywhere.com",
 ]
 
+
+root_dir = BASE_DIR.parent
 # Static files
-STATIC_ROOT = "/home/ganzskang/endless_real_clips/static"
+STATIC_ROOT = os.path.join(root_dir, "static")
 
 # Media files
-MEDIA_ROOT = "/home/ganzskang/endless_real_clips/media"
+MEDIA_ROOT = os.path.join(root_dir, "media")
 
 # Email backend for production
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
